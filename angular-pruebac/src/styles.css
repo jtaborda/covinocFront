@@ -1,0 +1,218 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* para el select autocomplete*/
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+
+ion-button {
+  text-transform: none;
+}
+
+[tooltip]:before {
+    content : attr(tooltip);
+    opacity : 0;
+}
+[tooltip]:hover:before {
+    opacity : 1;
+}
+
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 0 3px rgba(60, 255, 0, 0.151);
+}
+.mat-form-field-appearance-outline.mat-focused:not(.mat-form-field-opened) .mat-form-field-outline-thick {
+  color: #48cc53 !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 0 3px rgba(60, 255, 0, 0.151);
+}
+.centrado {
+  text-align: center;
+}
+.new-background-color {
+  --background: #008b00 !important;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+.form-container>* {
+  width: 100%;
+}
+.action-sheet-group {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.action-sheet-group-cancel {
+  background-color: #eb445a !important;
+  --button-background-focused:var(--ion-color-base);
+}
+
+.mat-paginator {
+  display: flex !important;
+  justify-content: center !important;
+}
+.matCancelarWeb {
+  color: #eb445a !important;
+}
+.matEditarWeb {
+  color: #48cc53 !important;
+}
+.btnCancelarWeb {
+  --ion-color-base: var(--ion-color-new-cancel) !important;
+  color: #ffffff !important;
+  background-color: #eb445a !important;
+}
+.btnEditarWeb {
+  color: #ffffff !important;
+  background-color: #48cc53 !important;
+}
+.btnGuardarWeb {
+  --ion-color-base: var(--ion-color-new-save) !important;
+  color: #ffffff !important;
+  background-color: #48cc53 !important;
+}
+.btnVisualizarWeb {
+  color: #ffffff !important;
+  background-color: #2cb4e8 !important;
+}
+.btnNucleosWeb {
+  color: #ffffff !important;
+  background-color: #3880ff !important;
+}
+.mat-header-cell {
+  color: rgba(0, 0, 0);
+  display:flex !important;
+  justify-content:center !important;
+  font-weight: 500 !important;
+  font-size: 15px;
+}
+.mat-form-field {
+  font-weight: 500;
+  font-size: 14px;
+}
+.mat-typography h5{
+  font-weight: 500;
+  font-size: 14px;
+}
+mat-cell{
+  display:flex !important;
+  justify-content:center!important;
+}
+:root {
+	--ion-color-new-save: #48cc53;
+  --ion-color-new-cancel: #eb445a;
+}
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #48cc53 !important;
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #48cc53 !important;
+}
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color:#48cc53 !important;
+}
+.uname{
+  text-transform: uppercase !important;
+}
+.displayed {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.mat-select-disabled .mat-select-trigger {
+  color: rgb(130, 130, 130);
+  font-weight: 500;
+}
+.mat-input-element:disabled {
+  color: rgb(130, 130, 130);
+  font-weight: 500;
+}
+.mat-cell{
+  color: rgb(50, 50, 50);
+  font-weight: 500;
+}
+.mat-select-value {
+  color: rgba(0, 0, 0);
+  font-weight: 500;
+}
+input.mat-input-element {
+  color: rgba(0, 0, 0);
+  font-weight: 500;
+  font-size: 14px;
+}
+ion-card-subtitle {
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+}
+.sc-ion-label-md-h {
+  color: rgba(0, 0, 0);
+  font-weight: 500;
+}
+.new-background-color {
+  background: #008b00 !important;
+}
+ng-select{
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  font-size: 14px;
+}
+.my-actions { margin: 0 2em; }
+.order-1 { order: 1; }
+.order-2 { order: 2; }
+.order-3 { order: 3; }
+
+.right-gap {
+  margin-right: auto;
+}
+.item-label-stacked {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.native-input {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+.native-input:disabled {
+  color: rgb(150, 150, 150) !important;
+  opacity: 10 !important;
+}
+
+mat-label {
+  color: rgba(0, 0, 0);
+  font-weight: 500;
+}
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  font-size: 15px !important;
+  justify-content:center !important;
+}
+.mat-error {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+.mayuscula{    
+  text-transform: uppercase; 
+} 
+
+
+.snackStyleError {
+  color: #FFFFFF;
+  background: #99252F;
+  font-weight: 500;
+  z-index: 10000000;
+}
+
+.snackStyleWarning {
+  color: #FFFFFF;
+  background: #c7991b;
+  font-weight: 500;
+  z-index: 10000000;
+}
+
+.snackStyleInfo {
+  color: #FFFFFF;
+  font-weight: 500;
+  background: #34B1B6;
+  z-index: 10000000;
+}

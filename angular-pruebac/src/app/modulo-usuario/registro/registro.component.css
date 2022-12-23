@@ -1,0 +1,64 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  form{
+    margin: 0 auto;
+    width: 300px;
+    display: block;
+}
+form div{
+    padding: 5px 0;
+}
+
+.example-input .ant-input {
+  width: 200px;
+  margin: 0 8px 8px 0;
+}
+
+form label{
+    display: block;
+    padding: 10px 0;
+}
+form input[type=text]{
+    width: 100%;
+    padding: 5px;
+}
+
+.mat-elevation-z4 {
+  overflow-x: auto;
+}
+.mat-form-field--inline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.mat-form-field--inline .mat-form-field {
+  display: inline-block;
+  width: 100%;
+  vertical-align: middle;
+}
+.mat-form-field--inline .mat-form-field:nth-child(1n) {
+  margin-right: 2.5px;
+}
+.custom-dialog-container .mat-dialog-container,
+.custom-dialog-container .mat-dialog-content {
+  overflow: visible;
+}
+.fieldHeading {
+  float: left;
+  width: 50px;
+}
+.mat-header-cell {
+  background-color: #157347;
+  color: white;
+  min-height: 26px;
+}
+nz-date-picker {
+  margin: 0 8px 12px 0;
+}

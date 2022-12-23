@@ -1,0 +1,85 @@
+<hr>
+<form class="example-form" >
+
+  <div class="center">
+    <h2 class ="card-title">{{titulo2}}</h2>
+  </div>
+
+
+
+
+
+
+  <div style="background: #ECECEC;padding:15px;">
+  <nz-card style="width:1300px;"  >
+    <nz-table #fixedTable [nzData]="empleados" nzTableLayout="fixed">
+      <thead>
+        <tr>
+          <th >#</th>
+          <th >Primer Apellido</th>
+          <th>Segundo Apellido</th>
+          <th>Primer Nombre</th>
+          <th >Otros Nombres</th>
+          <th>Pais</th>
+          <th>Tipo Identificacion</th>
+          <th>Numero Identificacion</th>
+          <th>Correo</th>
+          <th>Fecha Ingreso</th>
+          <th>Area</th>
+          <th>Estado</th>
+          <th>Fecha y Hora registro</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of fixedTable.data  ; let cont = index">
+          <th scope="row">{{ cont+1}}</th>
+            <td>{{data.primer_apellido}}</td>
+            <td>{{data.segundo_apellido}}</td>
+            <td>{{data.primer_nombre}}</td>
+            <td>{{data.otros_nombres}}</td>
+            <td>{{data.pais}}</td>
+            <td>{{data.tipo_identificacion}}</td>
+            <td>{{data.identificacion}}</td>
+            <td>{{data.correo}}</td>
+            <td>{{data.fecha_ingreso | date:'dd/MM/yyyy ' : 'UTC' }} </td>
+            <td>{{data.area}}</td>
+            <td>{{data.estado}}</td>
+            <td>{{data.fecha_hora_ingreso }}</td>
+            <td>  
+              <a  [routerLink]="['/registro',data.id]"
+              nzTooltipTitle="Editar Registro" nz-tooltip >
+              <mat-icon class="primary" nzType="primary" >edit</mat-icon>
+            </a>
+           
+        <a
+        nz-popconfirm
+        nzPopconfirmTitle="¿Desea Eliminar?"
+        nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="delete(data)"
+        nzTooltipTitle="Eliminar Registro" nz-tooltip     
+      >
+      
+      <mat-icon class="primary" nzType="primary" >delete</mat-icon>
+      </a>
+    </td>
+    
+        </tr>
+      </tbody>
+    </nz-table>
+
+
+  </nz-card>
+</div>
+
+
+
+
+  
+<div class="alert alert-success" role="alert" *ngIf="mensaje">
+  Empleado Eliminado Correctamente
+</div>
+
+
+</form>
+  
