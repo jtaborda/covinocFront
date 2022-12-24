@@ -35,7 +35,7 @@ export class RegistroComponent implements OnInit {
       this.id = params.get("id");
      });    
    }
-
+   usuarios : Usuario[] =[];
    dateFormat: string = 'dd/MM/yyyy';
    correoCompleto : string="";
    listaGenero = [
@@ -46,9 +46,9 @@ export class RegistroComponent implements OnInit {
     nombre : new FormControl([Validators.maxLength(20),Validators.required]),
     correo : new FormControl('', []),
     fecha_hora_ingreso: new FormControl('', []),
-    identificacion : new FormControl('', []),
+    identificacion : new FormControl('', [Validators.required]),
     genero : new FormControl('', [Validators.required]),
-    telefono : new FormControl('', [Validators.required]),
+    telefono : new FormControl('', []),
   }
 
   todayWithPipe = null;
@@ -80,17 +80,36 @@ export class RegistroComponent implements OnInit {
 
     if(this.validateForm.valid)
     {
-    this.usuario.nombre=this.idControl.nombre.value
-    this.usuario.correo=this.idControl.correo.value
-     this.usuario.identificacion=this.idControl.identificacion.value
-     this.usuario.genero=this.idControl.genero.value
-     this.usuario.telefono=this.idControl.telefono.value
+    this.usuario.nombre=this.idControl.nombre.value;
+    this.usuario.correo=this.idControl.correo.value;
+     this.usuario.identificacion=this.idControl.identificacion.value;
+     this.usuario.genero=this.idControl.genero.value;
+     this.usuario.telefono=this.idControl.telefono.value;
 
-    this.openSnackBar("Usuario Creado", "info");
-    this.usuarioService.create(this.usuario).subscribe(    
-      res=> this.router.navigate(['../listado'])    
+
+     this.usuarioService.getAll().subscribe(
+      data=>
+      {
+        this.usuarios=data
+         let editar =this.usuarios.find((p)=>{return p.identificacion ==this.idControl.identificacion.value });    
+     
+if(editar?.identificacion==null)
+{
+  this.openSnackBar("Usuario Creado", "info");
+  this.usuarioService.create(this.usuario).subscribe(          
+    res=> {
+      this.router.navigate(['../listado'])  
+      }
+    
+  )
+}
+else{
+this.openSnackBar("Usuario con identificacion "+this.idControl.identificacion.value +" ya existe", "error");
+}
+
+      }
+   
     )
-
 
     }
     else
@@ -105,7 +124,7 @@ export class RegistroComponent implements OnInit {
   }
 
 
-  usuarios : Usuario[] =[];
+
 // realiza EL Llamado al buscar por id
   cargar():void{
 

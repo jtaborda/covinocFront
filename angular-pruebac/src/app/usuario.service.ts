@@ -18,17 +18,22 @@ export class usuarioService {
 
  //obtiene uno solo
  
-   get(id : number):Observable<Usuario>
+   /*get(id : number):Observable<Usuario>
    {
        return this.http.get<Usuario>(this.url+'listarById/'+id);
-    }
+    }*/
+
+
+    getCedula(cedula : number):Observable<Usuario>
+    {
+        return this.http.get<Usuario>(this.url+'listarByCedula/'+cedula);
+     }
    
 
 //Crea un empleado
       create(usuario:Usuario):Observable<Usuario>
       {
-        console.log
-        return this.http.post<Usuario>(this.url, usuario);
+        return this.http.post<Usuario>(this.url, usuario);        
       }
 
       //Modifica un empleado
@@ -42,4 +47,6 @@ export class usuarioService {
           {
            return this.http.delete<Usuario>(this.url+'delete/'+id);
            }
+
+           
 }
