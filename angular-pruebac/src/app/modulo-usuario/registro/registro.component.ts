@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl ,FormsModule} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { EmpleadoService } from '../../empleado.service';
-import { Empleado } from '../empleado';
+import { usuarioService } from '../../usuario.service';
+import { Usuario } from '../usuario';
 import { Router,ActivatedRoute } from '@angular/router';
 import { compileDeclareNgModuleFromMetadata } from '@angular/compiler';
 import { DatePipe } from '@angular/common';
@@ -16,9 +16,9 @@ import { Console } from 'console';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-  empleado : Empleado = new Empleado;
-  titulo :string= "Registro del Empleado";
-  titulo2 :string= "Edición del Empleado";
+  usuario : Usuario = new Usuario;
+  titulo :string= "Registro del Usuario";
+  titulo2 :string= "Edición del Usuario";
   mensaje : boolean = false;
   today: Date = new Date();
   pipe = new DatePipe('en-US');
@@ -28,7 +28,7 @@ export class RegistroComponent implements OnInit {
   id: any;
   validateForm!: FormGroup;
   constructor(    private actRoute: ActivatedRoute,private activateRouter: ActivatedRoute, 
-    private empleadoService : EmpleadoService, private fb: FormBuilder,   private router: Router, private snackbar: MatSnackBar
+    private usuarioService : usuarioService, private fb: FormBuilder,   private router: Router, private snackbar: MatSnackBar
     ) 
   {
     this.actRoute.paramMap.subscribe((params) => {
@@ -37,33 +37,22 @@ export class RegistroComponent implements OnInit {
    }
 
    dateFormat: string = 'dd/MM/yyyy';
-   listOfPaises= ['Colombia', 'Ecuador','Estados Unidos', 'Francia'];
-   listOfTiposId= ['Cedula', 'Tarjeta identidad', 'Pasaporte'];
-   listOfTArea= ['Administración', 'Financiera','Compras', 'Infraestructura','Operación','Talento Humano','Servicios Varios'];
-   estado : string ='ACTIVO';
    correoCompleto : string="";
-
+   listaGenero = [
+    { label: 'Femenino', value: 'Femenino' },
+    { label: 'Masculino', value: 'Masculino' },
+  ];
   public idControl = {
-    primer_apellido : new FormControl([Validators.maxLength(20),Validators.required]),
-    primer_nombre : new FormControl('', [Validators.maxLength(20),Validators.required]),
-    area : new FormControl('', [Validators.maxLength(20)]),
+    nombre : new FormControl([Validators.maxLength(20),Validators.required]),
     correo : new FormControl('', []),
-    estado : new FormControl('', []),
     fecha_hora_ingreso: new FormControl('', []),
-    fecha_ingreso : new FormControl('', []),
     identificacion : new FormControl('', []),
-    otros_nombres : new FormControl('', [Validators.maxLength(20)]),
-    pais : new FormControl('', []),    
-    segundo_apellido : new FormControl('', [Validators.maxLength(20)]),
-    tipo_identificacion : new FormControl('', []),
-
+    genero : new FormControl('', [Validators.required]),
+    telefono : new FormControl('', [Validators.required]),
   }
 
   todayWithPipe = null;
   ngOnInit(): void {
-  
-
-    this.listener();
     this.cargar();
     var today = new Date();
  
@@ -71,9 +60,13 @@ export class RegistroComponent implements OnInit {
      this.fechaRegistro=today.toLocaleString();  
     this.validateForm = this.fb.group(
       {
-        primer_apellido: this.idControl.primer_apellido,
-        primer_nombre: this.idControl.primer_nombre,
-        identificacion : this.idControl.identificacion,
+        nombre: this.idControl.nombre,
+        correo: this.idControl.correo,
+        identificacion : this.idControl.identificacion,      
+        fecha_hora_ingreso: this.idControl.fecha_hora_ingreso,     
+        genero : this.idControl.genero,
+        telefono :  this.idControl.telefono,
+
       });
 
   }
@@ -81,42 +74,20 @@ export class RegistroComponent implements OnInit {
   onSubmit()
   {}
 
-  listener()
-  {
-    this.idControl.primer_nombre.valueChanges.subscribe( item => {
-
-      if(item=="" || item==undefined)
-      {
-        this.correoCompleto=""
-      }
-      else
-     { this.correoCompleto= this.idControl.primer_nombre.value+"."+this.idControl.primer_apellido.value+"@cidenet.com.co";}
-     } );
-  
-  }
-
   // realiza EL Llamado al Crear
 
   create():void{
 
     if(this.validateForm.valid)
     {
-    this.empleado.primer_apellido=this.idControl.primer_apellido.value
-    this.empleado.primer_nombre=this.idControl.primer_nombre.value
-  this.correoCompleto= this.idControl.primer_nombre.value+"."+this.idControl.primer_apellido.value+"@cidenet.com.co";
-    this.empleado.correo=this.correoCompleto
-    this.empleado.area=this.idControl.area.value
-    this.empleado.segundo_apellido=this.idControl.segundo_apellido.value
-    this.empleado.estado='ACTIVO'
-    this.empleado.fecha_hora_ingreso=this.fechaRegistro
-    this.empleado.fecha_ingreso=this.idControl.fecha_ingreso.value
-    this.empleado.identificacion=this.idControl.identificacion.value
-    this.empleado.otros_nombres=this.idControl.otros_nombres.value   
-    this.empleado.pais=this.idControl.pais.value
-    this.empleado.tipo_identificacion=this.idControl.tipo_identificacion.value
-    this.empleado.otros_nombres=this.idControl.otros_nombres.value   
-    this.openSnackBar("Empleado Creado", "info");
-    this.empleadoService.create(this.empleado).subscribe(    
+    this.usuario.nombre=this.idControl.nombre.value
+    this.usuario.correo=this.idControl.correo.value
+     this.usuario.identificacion=this.idControl.identificacion.value
+     this.usuario.genero=this.idControl.genero.value
+     this.usuario.telefono=this.idControl.telefono.value
+
+    this.openSnackBar("Usuario Creado", "info");
+    this.usuarioService.create(this.usuario).subscribe(    
       res=> this.router.navigate(['../listado'])    
     )
 
@@ -134,27 +105,20 @@ export class RegistroComponent implements OnInit {
   }
 
 
-  empleados : Empleado[] =[];
+  usuarios : Usuario[] =[];
 // realiza EL Llamado al buscar por id
   cargar():void{
 
-    this.empleadoService.getAll().subscribe(
+    this.usuarioService.getAll().subscribe(
       data=>
       {
-        this.empleados=data
-         let editar =this.empleados.find((p)=>{return p.id ==this.id });    
-         this.idControl.primer_apellido.setValue(editar?.primer_apellido)
-         this.idControl.identificacion.setValue(editar?.identificacion)      
-         this.idControl.primer_nombre.setValue(editar?.primer_nombre)
-         this.idControl.area.setValue(editar?.area)
-         this.idControl.segundo_apellido.setValue(editar?.segundo_apellido)
+        this.usuarios=data
+         let editar =this.usuarios.find((p)=>{return p.id ==this.id });    
+         this.idControl.identificacion.setValue(editar?.identificacion)    
          this.idControl.correo.setValue(editar?.correo)
-         this.idControl.estado.setValue(editar?.estado)
-         this.idControl.fecha_ingreso.setValue(editar?.fecha_ingreso)
-         this.idControl.otros_nombres.setValue(editar?.otros_nombres)
-         this.idControl.pais.setValue(editar?.pais)
-         this.idControl.tipo_identificacion.setValue(editar?.tipo_identificacion)
-         this.idControl.fecha_hora_ingreso.setValue(editar?.fecha_hora_ingreso)
+         this.idControl.telefono.setValue(editar?.telefono)    
+         this.idControl.genero.setValue(editar?.genero)
+         this.idControl.nombre.setValue(editar?.nombre)
       }
    
     )
@@ -166,23 +130,17 @@ update():void{
   if(this.validateForm.valid)
   {
     this.mensaje=true;
-    this.empleado.id=this.id;
-    this.empleado.primer_apellido=   this.idControl.primer_apellido.value;
-    this.empleado.identificacion=   this.idControl.identificacion.value;
-    this.empleado.primer_nombre=   this.idControl.primer_nombre.value;
-    this.empleado.area=   this.idControl.area.value;
-    this.empleado.segundo_apellido=   this.idControl.segundo_apellido.value;
-    this.empleado.correo=   this.idControl.correo.value;
-    this.empleado.estado=   this.idControl.fecha_ingreso.value;
-    this.empleado.otros_nombres=   this.idControl.otros_nombres.value;
-    this.empleado.pais=   this.idControl.pais.value;
-    this.empleado.tipo_identificacion=   this.idControl.tipo_identificacion.value;
-    this.empleado.fecha_hora_ingreso=   this.idControl.fecha_hora_ingreso.value;
-    this.empleadoService.update(this.empleado).subscribe(    
+    this.usuario.id=this.id;
+    this.usuario.nombre=   this.idControl.nombre.value;
+    this.usuario.identificacion=   this.idControl.identificacion.value;
+    this.usuario.correo=   this.idControl.correo.value;
+    this.usuario.telefono=   this.idControl.telefono.value;
+    this.usuario.genero=   this.idControl.genero.value;
+    this.usuarioService.update(this.usuario).subscribe(    
       res=> this.router.navigate(['../listado'])    
     )
 
-    this.openSnackBar("Empleado Actualizado", "info");
+    this.openSnackBar("Usuario Actualizado", "info");
   }
   else
   {

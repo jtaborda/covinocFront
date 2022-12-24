@@ -18,8 +18,8 @@
           <div class="col-sm">         
           <nz-form-item>
             <nz-form-control nzErrorTip="Campo Obligatorio!">             
-              <label for="sApe" class="col-form-label col-sm2"> <b style="color:rgb(255, 0, 0);">*</b> &nbsp;<b>Primer Apellido</b></label>
-              <input nz-input placeholder="Ingrese Primer Apellido"[formControl]="idControl.primer_apellido" [required]="true" nzSize="default" (ngModelChange)="idControl.primer_apellido" />
+              <label for="sApe" class="col-form-label col-sm2"> <b style="color:rgb(255, 0, 0);">*</b> &nbsp;<b>Nombres</b></label>
+              <input nz-input placeholder="Ingrese Nombres"[formControl]="idControl.nombre" [required]="true" nzSize="default" (ngModelChange)="idControl.nombre" />
             </nz-form-control>
           </nz-form-item>
           </div>
@@ -27,8 +27,8 @@
           <div class="col-sm">            
           <nz-form-item>
             <nz-form-control >
-             <label for="sApe" class="col-form-label col-sm2"> &nbsp;<b>Segundo Apellido</b></label>
-              <input nz-input placeholder="Ingrese Segundo Apellido"[formControl]="idControl.segundo_apellido" nzSize="default"  />
+             <label for="sApe" class="col-form-label col-sm2"><b style="color:rgb(255, 0, 0);">*</b> &nbsp;<b>Identificacion</b></label>
+              <input type="number" nz-input placeholder="Ingrese Identificacion"[formControl]="idControl.identificacion" nzSize="default"  />
             </nz-form-control>
           </nz-form-item>
           </div>
@@ -36,114 +36,53 @@
           <div class="col-sm">           
           <nz-form-item>
             <nz-form-control nzErrorTip="Campo Obligatorio!">
-              <label for="area" class="col-form-label col-sm2"> <b style="color:rgb(255, 0, 0);">*</b> &nbsp;<b>Primer Nombre</b></label>
-               <input nz-input placeholder="Ingrese Primer Nombre"[formControl]="idControl.primer_nombre" [required]="true" nzSize="default" />
+              <label for="area" class="col-form-label col-sm2"> <b style="color:rgb(255, 0, 0);">*</b> &nbsp;<b>Genero</b></label>
+              <nz-select
+              #selectAnt
+              nzShowSearch
+              nzPlaceHolder="Seleccione Genero"
+              [formControl]="idControl.genero" 
+              [required]="true"              
+            style="min-width: 200px;" >
+          <nz-option *ngFor="let option of listaGenero" 
+          [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+          </nz-select>
             </nz-form-control>
           </nz-form-item>
           </div>
 
+        </div>
+
+        <div class="row">
+          
           <div class="col-sm">         
             <nz-form-item>
               <nz-form-control >
-               <label for="area" class="col-form-label col-sm2">  &nbsp;<b>Otro Nombre</b></label>
-                <input nz-input placeholder="Ingrese Otro Nombre"[formControl]="idControl.otros_nombres" />
+               <label for="area" class="col-form-label col-sm2">  &nbsp;<b>Correo</b></label>
+                <input nz-input placeholder="Ingrese Correo"[formControl]="idControl.correo" />
               </nz-form-control>
             </nz-form-item>
             </div> 
-        </div>
 
-        <div class="row">
           <div class="col-sm">
-            <label for="pais" class="col-form-label col-sm2"><b>Pais</b></label>
+            <label for="Telefono" class="col-form-label col-sm2"><b>Telefono</b></label>
             <div class="col-sm-12">
-             <select class="form-select" aria-label="Default select example" [formControl]="idControl.pais">
-              <option selected *ngFor="let option of listOfPaises" [value]="option">{{option}}</option>
-            </select>
-          </div>
-
-          </div>
-          <div class="col-sm">
-            <label for="tipoid" class="col-form-label col-sm2">
-              <b style="color:rgb(255, 0, 0);">*</b> &nbsp;<b>Tipo de Identificación</b></label>
-            <div class="col-sm-12">
-             <select class="form-select" aria-label="Default select example" [formControl]="idControl.tipo_identificacion">
-              <option selected *ngFor="let options of listOfTiposId" [value]="options">{{options}}</option>
-            </select>
-          </div>
-          </div>
-         
-          <div class="col-sm">           
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Campo Obligatorio!">
-                <label for="area" class="col-form-label col-sm2">    <b style="color:rgb(255, 0, 0);">*</b> &nbsp;<b>Número de Identificación</b></label>           
-                <input nz-input placeholder="Ingrese Número de Identificación"[formControl]="idControl.identificacion" [required]="true" nzSize="default" />
-              </nz-form-control>
-            </nz-form-item>
-            </div>
-
-
-            <div class="col-sm">         
-              <nz-form-item>
-                <nz-form-control >
-                    <label for="area" class="col-form-label col-sm2"><b>Correo electrónico</b></label>
-                  <input nz-input value="{{correoCompleto}}"  [disabled]="true"/>
-                </nz-form-control>
-              </nz-form-item>
-              </div> 
-
-        </div>
-
-        
-        <div class="row">
-          <div class="col-sm">
-            <label for="fechaI" class="col-form-label col-sm2"><b>Fecha de ingreso</b></label>
-            <div class="col-sm-12">
-   
-              <nz-date-picker  [nzPlaceHolder]="'Fecha ingreso'"
-              [formControl]="idControl.fecha_ingreso"
-              [nzFormat]="dateFormat" style="width: 100%">
-          </nz-date-picker>
-
-          </div>
-          </div>
-          <div class="col-sm">
-            <label for="area" class="col-form-label col-sm2"><b>Área</b></label>
-            
-            <div class="col-sm-12">
-              <select class="form-select" aria-label="Default select example" [formControl]="idControl.area">
-                <option selected *ngFor="let option of listOfTArea" [value]="option">{{option}}</option>
-              </select>
-
+                          <input type="number" nz-input placeholder="Ingrese Telefono"[formControl]="idControl.telefono" />
           </div>
           </div>
 
           <div class="col-sm">         
             <nz-form-item>
               <nz-form-control >
-                <label class="col-form-label col-sm2" ><b>Estado</b></label>
-                <input nz-input value="{{estado}}"  [disabled]="true"/>
-              </nz-form-control>
+                <label for="Telefono" class="col-form-label col-sm2"><b>Fecha Creacion Registro</b></label>
+              <input nz-input value="{{fechaRegistro}}"  [disabled]="true"/>
+           </nz-form-control>
             </nz-form-item>
             </div> 
-
-  
-
-            <div class="col-sm">         
-              <nz-form-item>
-                <nz-form-control >
-                  <label for="fechaReg" class="col-form-label col-sm2" *ngIf="id==0"><b>Fecha y hora Registro</b></label>
-                  <label for="fechaReg" class="col-form-label col-sm2" *ngIf="id>0"><b>Fecha y hora Edicion</b></label>
-                  <input nz-input value="{{fechaRegistro}}"  [disabled]="true"/>
-                </nz-form-control>
-              </nz-form-item>
-              </div> 
-       </div>  
+        </div>     
           </nz-card>
         </div>
 
-
-
-      
 <br>
 
 <button class="btn btn-success" role="button" (click)="create()" *ngIf="id==0">Crear Registro </button>

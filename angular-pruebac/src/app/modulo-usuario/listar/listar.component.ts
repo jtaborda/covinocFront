@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Empleado } from '../empleado';
-import { EmpleadoService } from '../../empleado.service';
+import { Usuario } from '../usuario';
+import { usuarioService } from '../../usuario.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -10,29 +10,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./listar.component.css']
 })
 export class ListarComponent implements OnInit {
-  empleados : Empleado[] =[];
+  usuario : Usuario[] =[];
   mensaje : boolean = false;
-  constructor(private empleadoService : EmpleadoService,    private snackbar: MatSnackBar) { }
-  titulo :string= "Listado de Empleados";
+  constructor(private usuarioService : usuarioService,    private snackbar: MatSnackBar) { }
+  titulo :string= "Listado de Usuario";
   ngOnInit(): void {
-    this.empleadoService.getAll().subscribe(
+    this.usuarioService.getAll().subscribe(
       data=>
-      {this.empleados=data
-        console.log(this.empleados)
+      {this.usuario=data
+        console.log(this.usuario)
       }
    
     )
  
   }
   durationInSeconds = 5;
-  titulo2 :string= "Listado de Empleados";
-delete(empleado : Empleado):void{
-  this.empleadoService.delete(empleado.id).subscribe(
-rest=>this.empleadoService.getAll().subscribe(
-  response=>this.empleados=response
+  titulo2 :string= "Listado de Usuarios";
+delete(Usuario : Usuario):void{
+  this.usuarioService.delete(Usuario.id).subscribe(
+rest=>this.usuarioService.getAll().subscribe(
+  response=>this.usuario=response
 )
   );
-  this.openSnackBar("Empleado Eliminado", "info");
+  this.openSnackBar("Usuario Eliminado", "info");
 }
 
 
